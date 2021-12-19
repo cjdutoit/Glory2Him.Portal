@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "G2H.Portal.Web.Tests.Unit",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "G2H.Portal.Web.Tests.Acceptance", "G2H.Portal.Web.Tests.Acceptance\G2H.Portal.Web.Tests.Acceptance.csproj", "{DAC92243-CBAC-484F-A19C-B76184B6CEE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G2H.Portal.Web", "G2H.Portal.Web\G2H.Portal.Web.csproj", "{F92760C2-083C-4B49-854D-610C4B0CC43E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "G2H.Portal.Web", "G2H.Portal.Web\G2H.Portal.Web.csproj", "{BABD5AC2-9497-4965-AF57-831373DC263F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +46,10 @@ Global
 		{DAC92243-CBAC-484F-A19C-B76184B6CEE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAC92243-CBAC-484F-A19C-B76184B6CEE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAC92243-CBAC-484F-A19C-B76184B6CEE3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F92760C2-083C-4B49-854D-610C4B0CC43E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F92760C2-083C-4B49-854D-610C4B0CC43E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F92760C2-083C-4B49-854D-610C4B0CC43E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F92760C2-083C-4B49-854D-610C4B0CC43E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BABD5AC2-9497-4965-AF57-831373DC263F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABD5AC2-9497-4965-AF57-831373DC263F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABD5AC2-9497-4965-AF57-831373DC263F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABD5AC2-9497-4965-AF57-831373DC263F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

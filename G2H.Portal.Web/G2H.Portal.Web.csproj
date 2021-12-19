@@ -1,14 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0" PrivateAssets="all" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="PrettyBlazor" Version="1.2.0" />
+		<PackageReference Include="RESTFulSense" Version="2.4.0" />
+		<PackageReference Include="Syncfusion.Blazor.Themes" Version="19.3.0.54" />
+		<PackageReference Include="Xeption" Version="1.7.0" />
+		<PackageReference Include="Syncfusion.Blazor" Version="19.3.0.53" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Update="wwwroot\imgs\error.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Views\Bases\" />
+	  <Folder Include="Views\Components\" />
+	</ItemGroup>
 
 </Project>
