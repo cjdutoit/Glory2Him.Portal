@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace G2H.Portal.Web
@@ -21,9 +22,16 @@ namespace G2H.Portal.Web
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                if (hostingContext.HostingEnvironment.IsDevelopment())
                 {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    config.AddUserSecrets<Program>();
+                }
+            })
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
     }
 }

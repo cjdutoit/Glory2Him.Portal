@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Syncfusion.Blazor;
+using Syncfusion.Licensing;
 
 namespace G2H.Portal.Web
 {
@@ -35,6 +36,9 @@ namespace G2H.Portal.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            string syncFustionLicenseKey = Configuration["Syncfusion:LicenseKey"];
+            SyncfusionLicenseProvider.RegisterLicense(syncFustionLicenseKey);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
