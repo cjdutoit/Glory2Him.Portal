@@ -19,7 +19,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Views\Bases\" />
 	  <Folder Include="Views\Components\" />
 	</ItemGroup>
 
