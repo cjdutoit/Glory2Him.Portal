@@ -14,10 +14,10 @@ namespace G2H.Portal.Web.Views.Bases
     public partial class ImageBase : ComponentBase
     {
         [Parameter]
-        public string Src { get; set; }
+        public string Source { get; set; }
 
         [Parameter]
-        public string Alt { get; set; }
+        public string AlternativeText { get; set; }
 
         [Parameter]
         public string Width { get; set; }
