@@ -24,5 +24,17 @@ namespace G2H.Portal.Web.Views.Bases
 
         [Parameter]
         public string Height { get; set; }
+
+        public void SetSource(string source)
+        {
+            Source = source;
+            InvokeAsync(StateHasChanged);
+        }
+
+        public void SetAlternativeText(string alternativeText)
+        {
+            AlternativeText = alternativeText;
+            InvokeAsync(StateHasChanged);
+        }
     }
 }
