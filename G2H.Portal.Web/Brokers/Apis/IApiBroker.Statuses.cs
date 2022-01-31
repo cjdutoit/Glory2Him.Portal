@@ -7,6 +7,7 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using G2H.Portal.Web.Models.Statuses;
@@ -16,5 +17,6 @@ namespace G2H.Portal.Web.Brokers.Apis
     public partial interface IApiBroker
     {
         ValueTask<List<Status>> GetAllStatusesAsync();
+        ValueTask<Status> GetStatusByIdAsync(Guid statusId);
     }
 }

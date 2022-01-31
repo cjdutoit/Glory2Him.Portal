@@ -7,6 +7,7 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using G2H.Portal.Web.Models.Statuses;
@@ -19,5 +20,8 @@ namespace G2H.Portal.Web.Brokers.Apis
 
         public async ValueTask<List<Status>> GetAllStatusesAsync() =>
             await this.GetAsync<List<Status>>(statusesRelativeUrl);
+
+        public async ValueTask<Status> GetStatusByIdAsync(Guid statusId) =>
+            await this.GetAsync<Status>($"{statusesRelativeUrl}/{statusId}");
     }
 }
