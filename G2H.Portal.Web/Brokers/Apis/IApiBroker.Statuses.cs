@@ -7,16 +7,14 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using G2H.Portal.Web.Models.PostTypes;
+using G2H.Portal.Web.Models.Statuses;
 
 namespace G2H.Portal.Web.Brokers.Apis
 {
     public partial interface IApiBroker
     {
-        ValueTask<List<PostType>> GetAllPostTypesAsync();
-        ValueTask<PostType> GetPostTypeByIdAsync(Guid postTypeId);
+        ValueTask<List<Status>> GetAllStatusesAsync();
     }
 }
