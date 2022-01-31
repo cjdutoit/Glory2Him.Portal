@@ -7,6 +7,7 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using G2H.Api.Web.Models.Posts;
 
@@ -18,5 +19,8 @@ namespace G2H.Portal.Web.Brokers.Apis
 
         public async ValueTask<Post> PostPostAsync(Post post) =>
             await this.PostAsync(PostsRelativeUrl, post);
+
+        public async ValueTask<List<Post>> GetAllPostsAsync() =>
+            await this.GetAsync<List<Post>>(PostsRelativeUrl);
     }
 }
