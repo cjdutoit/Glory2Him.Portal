@@ -9,10 +9,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using G2H.Api.Web.Models.Posts;
 using G2H.Portal.Web.Models.Posts.Exceptions;
 using Moq;
+using RESTFulSense.Exceptions;
 using Xunit;
 
 namespace G2H.Portal.Web.Tests.Unit.Services.Foundations.Posts
@@ -51,6 +53,50 @@ namespace G2H.Portal.Web.Tests.Unit.Services.Foundations.Posts
             this.loggingBrokerMock.Verify(broker =>
                 broker.LogCritical(It.Is(SameExceptionAs(
                     expectedPostDependencyException))),
+                        Times.Once);
+
+            this.apiBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfDependencyApiErrorOccursAndLogItAsync()
+        {
+            // given
+            var randomExceptionMessage = GetRandomMessage();
+            var responseMessage = new HttpResponseMessage();
+
+            var httpResponseException =
+                new HttpResponseException(
+                    responseMessage,
+                    randomExceptionMessage);
+
+            var failedPostDependencyException =
+                new FailedPostDependencyException(httpResponseException);
+
+            var expectedDependencyException =
+                new PostDependencyException(
+                    failedPostDependencyException);
+
+            this.apiBrokerMock.Setup(broker =>
+                broker.GetAllPostsAsync())
+                    .ThrowsAsync(httpResponseException);
+
+            // when
+            ValueTask<List<Post>> retrieveAllPostsTask =
+                postService.RetrieveAllPostsAsync();
+
+            // then
+            await Assert.ThrowsAsync<PostDependencyException>(() =>
+                retrieveAllPostsTask.AsTask());
+
+            this.apiBrokerMock.Verify(broker =>
+                broker.GetAllPostsAsync(),
+                    Times.Once);
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(
+                    expectedDependencyException))),
                         Times.Once);
 
             this.apiBrokerMock.VerifyNoOtherCalls();
