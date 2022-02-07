@@ -13,5 +13,6 @@ namespace G2H.Portal.Web.Brokers.Loggings
     {
         void LogTrace(string message);
         void LogDebug(string message);
+        void LogInformation(string message);
     }
 }

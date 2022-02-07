@@ -20,5 +20,7 @@ namespace G2H.Portal.Web.Brokers.Loggings
         public void LogTrace(string message) => this.logger.LogTrace(message);
 
         public void LogDebug(string message) => this.logger.LogDebug(message);
+
+        public void LogInformation(string message) => this.logger.LogInformation(message);
     }
 }
