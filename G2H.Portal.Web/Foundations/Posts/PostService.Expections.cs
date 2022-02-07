@@ -49,6 +49,13 @@ namespace G2H.Portal.Web.Foundations.Posts
 
                 throw CreateAndLogCriticalDependencyException(failedPostDependencyException);
             }
+            catch (HttpResponseException httpResponseException)
+            {
+                var failedPostDependencyException =
+                    new FailedPostDependencyException(httpResponseException);
+
+                throw CreateAndLogDependencyException(failedPostDependencyException);
+            }
         }
 
         private PostDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
@@ -57,6 +64,16 @@ namespace G2H.Portal.Web.Foundations.Posts
                 new PostDependencyException(exception);
 
             this.loggingBroker.LogCritical(postDependencyException);
+
+            return postDependencyException;
+        }
+
+        private PostDependencyException CreateAndLogDependencyException(Xeption exception)
+        {
+            var postDependencyException =
+                new PostDependencyException(exception);
+
+            this.loggingBroker.LogError(postDependencyException);
 
             return postDependencyException;
         }
