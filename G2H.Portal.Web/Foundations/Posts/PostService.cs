@@ -28,7 +28,7 @@ namespace G2H.Portal.Web.Foundations.Posts
             this.loggingBroker = loggingBroker;
         }
 
-        public async ValueTask<List<Post>> RetrieveAllPostsAsync() =>
-            await apiBroker.GetAllPostsAsync();
+        public ValueTask<List<Post>> RetrieveAllPostsAsync() =>
+            TryCatch(async () => await apiBroker.GetAllPostsAsync());
     }
 }
