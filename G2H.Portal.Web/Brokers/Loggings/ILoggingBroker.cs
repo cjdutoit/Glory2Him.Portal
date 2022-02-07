@@ -12,5 +12,6 @@ namespace G2H.Portal.Web.Brokers.Loggings
     public interface ILoggingBroker
     {
         void LogTrace(string message);
+        void LogDebug(string message);
     }
 }

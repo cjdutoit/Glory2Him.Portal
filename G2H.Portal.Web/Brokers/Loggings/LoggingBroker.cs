@@ -18,5 +18,7 @@ namespace G2H.Portal.Web.Brokers.Loggings
         public LoggingBroker(ILogger<LoggingBroker> logger) => this.logger = logger;
 
         public void LogTrace(string message) => this.logger.LogTrace(message);
+
+        public void LogDebug(string message) => this.logger.LogDebug(message);
     }
 }
