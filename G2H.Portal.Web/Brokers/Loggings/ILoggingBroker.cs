@@ -7,6 +7,8 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System;
+
 namespace G2H.Portal.Web.Brokers.Loggings
 {
     public interface ILoggingBroker
@@ -15,5 +17,6 @@ namespace G2H.Portal.Web.Brokers.Loggings
         void LogDebug(string message);
         void LogInformation(string message);
         void LogWarning(string message);
+        void LogError(Exception exception);
     }
 }
