@@ -18,5 +18,6 @@ namespace G2H.Portal.Web.Brokers.Loggings
         void LogInformation(string message);
         void LogWarning(string message);
         void LogError(Exception exception);
+        void LogCritical(Exception exception);
     }
 }
