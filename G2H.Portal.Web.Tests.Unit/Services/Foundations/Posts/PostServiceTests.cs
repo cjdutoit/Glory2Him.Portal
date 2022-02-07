@@ -10,12 +10,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Net.Http;
 using G2H.Api.Web.Models.Posts;
 using G2H.Portal.Web.Brokers.Apis;
 using G2H.Portal.Web.Brokers.Loggings;
 using G2H.Portal.Web.Foundations.Posts;
 using Moq;
+using RESTFulSense.Exceptions;
 using Tynamix.ObjectFiller;
+using Xeptions;
+using Xunit;
 
 namespace G2H.Portal.Web.Tests.Unit.Services.Foundations.Posts
 {
@@ -34,11 +39,48 @@ namespace G2H.Portal.Web.Tests.Unit.Services.Foundations.Posts
                 loggingBroker: loggingBrokerMock.Object);
         }
 
-        private static List<Post> CreateRandomPosts() =>
-            CreatePostFiller().Create(count: GetRandomNumber()).ToList();
+        public static TheoryData CriticalDependencyExceptions()
+        {
+            string exceptionMessage = GetRandomMessage();
+            var responseMessage = new HttpResponseMessage();
+
+            var httpRequestException =
+                new HttpRequestException();
+
+            var httpResponseUrlNotFoundException =
+                new HttpResponseUrlNotFoundException(
+                    responseMessage: responseMessage,
+                    message: exceptionMessage);
+
+            var httpResponseUnAuthorizedException =
+                new HttpResponseUnauthorizedException(
+                    responseMessage: responseMessage,
+                    message: exceptionMessage);
+
+            return new TheoryData<Exception>
+            {
+                httpRequestException,
+                httpResponseUrlNotFoundException,
+                httpResponseUnAuthorizedException
+            };
+        }
+
+        private static Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException)
+        {
+            return actualException =>
+                actualException.Message == expectedException.Message &&
+                actualException.InnerException.Message == expectedException.InnerException.Message &&
+                (actualException.InnerException as Xeption).DataEquals(expectedException.InnerException.Data);
+        }
+
+        private static string GetRandomMessage() =>
+            new MnemonicString(wordCount: GetRandomNumber()).GetValue();
 
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
+
+        private static List<Post> CreateRandomPosts() =>
+            CreatePostFiller().Create(count: GetRandomNumber()).ToList();
 
         private static DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();
