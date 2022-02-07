@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using G2H.Api.Web.Models.Posts;
 using G2H.Portal.Web.Brokers.Apis;
+using G2H.Portal.Web.Brokers.Loggings;
 using G2H.Portal.Web.Foundations.Posts;
 using Moq;
 using Tynamix.ObjectFiller;
@@ -21,12 +22,16 @@ namespace G2H.Portal.Web.Tests.Unit.Services.Foundations.Posts
     public partial class PostServiceTests
     {
         private readonly Mock<IApiBroker> apiBrokerMock;
+        private readonly Mock<ILoggingBroker> loggingBrokerMock;
         private readonly IPostService postService;
 
         public PostServiceTests()
         {
             this.apiBrokerMock = new Mock<IApiBroker>();
-            this.postService = new PostService(apiBroker: this.apiBrokerMock.Object);
+            this.loggingBrokerMock = new Mock<ILoggingBroker>();
+            this.postService = new PostService(
+                apiBroker: apiBrokerMock.Object,
+                loggingBroker: loggingBrokerMock.Object);
         }
 
         private static List<Post> CreateRandomPosts() =>
