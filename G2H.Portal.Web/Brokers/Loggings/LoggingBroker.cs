@@ -7,6 +7,7 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System;
 using Microsoft.Extensions.Logging;
 
 namespace G2H.Portal.Web.Brokers.Loggings
@@ -24,5 +25,8 @@ namespace G2H.Portal.Web.Brokers.Loggings
         public void LogInformation(string message) => this.logger.LogInformation(message);
 
         public void LogWarning(string message) => this.logger.LogWarning(message);
+
+        public void LogError(Exception exception) =>
+            this.logger.LogError(exception, exception.Message);
     }
 }
