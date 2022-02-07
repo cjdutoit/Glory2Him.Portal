@@ -7,6 +7,7 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -56,6 +57,13 @@ namespace G2H.Portal.Web.Foundations.Posts
 
                 throw CreateAndLogDependencyException(failedPostDependencyException);
             }
+            catch (Exception exception)
+            {
+                var failedPostServiceException =
+                    new FailedPostServiceException(exception);
+
+                throw CreateAndLogPostServiceException(failedPostServiceException);
+            }
         }
 
         private PostDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
@@ -76,6 +84,16 @@ namespace G2H.Portal.Web.Foundations.Posts
             this.loggingBroker.LogError(postDependencyException);
 
             return postDependencyException;
+        }
+
+        private PostServiceException CreateAndLogPostServiceException(Xeption exception)
+        {
+            var postServiceException =
+                new PostServiceException(exception);
+
+            this.loggingBroker.LogError(postServiceException);
+
+            return postServiceException;
         }
     }
 }
