@@ -31,13 +31,14 @@ namespace G2H.Portal.Web.Services.Views.PostViews
             this.loggingBroker = loggingBroker;
         }
 
-        public async ValueTask<List<PostView>> RetrieveAllPostViewsAsync()
-        {
-            List<Post> posts =
-                await this.postService.RetrieveAllPostsAsync();
+        public ValueTask<List<PostView>> RetrieveAllPostViewsAsync() =>
+            TryCatch(async () =>
+                {
+                    List<Post> posts =
+                        await this.postService.RetrieveAllPostsAsync();
 
-            return posts.Select(AsPostView).ToList();
-        }
+                    return posts.Select(AsPostView).ToList();
+                });
 
         private static Func<Post, PostView> AsPostView =>
             post => MapToPostView(post);

@@ -10,13 +10,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using G2H.Portal.Web.Brokers.Loggings;
 using G2H.Portal.Web.Foundations.Posts;
 using G2H.Portal.Web.Models.Posts;
+using G2H.Portal.Web.Models.Posts.Exceptions;
 using G2H.Portal.Web.Services.Views.PostViews;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
 using Tynamix.ObjectFiller;
+using Xeptions;
+using Xunit;
 
 namespace G2H.Portal.Web.Tests.Unit.Services.Views.PostViews
 {
@@ -38,6 +42,32 @@ namespace G2H.Portal.Web.Tests.Unit.Services.Views.PostViews
             this.postViewService = new PostViewService(
                 postService: this.postServiceMock.Object,
                 loggingBroker: this.loggingBrokerMock.Object);
+        }
+
+        private static Expression<Func<Xeption, bool>> SameExceptionAs(
+            Xeption expectedException)
+        {
+            return actualException =>
+                actualException.Message == expectedException.Message
+                && actualException.InnerException.Message == expectedException.InnerException.Message
+                && (actualException.InnerException as Xeption).DataEquals(expectedException.InnerException.Data);
+        }
+
+        public static TheoryData DependencyExceptions()
+        {
+            var innerException = new Xeption();
+
+            var postServiceDependencyException =
+                new PostDependencyException(innerException);
+
+            var postServiceException =
+                new PostServiceException(innerException);
+
+            return new TheoryData<Exception>
+            {
+                postServiceDependencyException,
+                postServiceException
+            };
         }
 
         private static int GetRandomNumber() =>
