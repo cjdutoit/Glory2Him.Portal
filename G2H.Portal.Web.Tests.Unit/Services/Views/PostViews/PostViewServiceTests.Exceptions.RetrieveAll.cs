@@ -52,5 +52,42 @@ namespace G2H.Portal.Web.Tests.Unit.Services.Views.PostViews
             this.postServiceMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionWhenServiceErrorOccursAndLogItAsync()
+        {
+            // given
+            var serviceException = new Exception();
+
+            var failedPostViewServiceException =
+                new FailedPostViewServiceException(serviceException);
+
+            var expectedPostViewServiceException =
+                new PostViewServiceException(failedPostViewServiceException);
+
+            this.postServiceMock.Setup(service =>
+                service.RetrieveAllPostsAsync())
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<List<PostView>> retrieveAllPostViewsTask =
+                this.postViewService.RetrieveAllPostViewsAsync();
+
+            // then
+            await Assert.ThrowsAsync<PostViewServiceException>(() =>
+                retrieveAllPostViewsTask.AsTask());
+
+            this.postServiceMock.Verify(service =>
+                service.RetrieveAllPostsAsync(),
+                    Times.Once());
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(
+                    expectedPostViewServiceException))),
+                        Times.Once());
+
+            this.postServiceMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
