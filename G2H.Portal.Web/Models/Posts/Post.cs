@@ -12,7 +12,7 @@ using G2H.Portal.Web.Models.Approvals;
 using G2H.Portal.Web.Models.Base;
 using G2H.Portal.Web.Models.PostTypes;
 
-namespace G2H.Api.Web.Models.Posts
+namespace G2H.Portal.Web.Models.Posts
 {
     public class Post : IKey, IApproval, IAudit, IVersioning
     {

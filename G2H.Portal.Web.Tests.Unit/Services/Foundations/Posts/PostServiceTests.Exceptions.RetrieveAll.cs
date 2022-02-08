@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using G2H.Api.Web.Models.Posts;
+using G2H.Portal.Web.Models.Posts;
 using G2H.Portal.Web.Models.Posts.Exceptions;
 using Moq;
 using RESTFulSense.Exceptions;

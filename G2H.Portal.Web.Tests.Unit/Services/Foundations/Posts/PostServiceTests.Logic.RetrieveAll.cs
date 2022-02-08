@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
-using G2H.Api.Web.Models.Posts;
+using G2H.Portal.Web.Models.Posts;
 using Moq;
 using Xunit;
 
