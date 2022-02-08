@@ -22,7 +22,6 @@ namespace G2H.Portal.Web.Foundations.Posts
     {
         private delegate ValueTask<List<Post>> ReturningPostsFunction();
 
-
         private async ValueTask<List<Post>> TryCatch(ReturningPostsFunction returningPostsFunction)
         {
             try
