@@ -9,7 +9,10 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using G2H.Portal.Web.Models.Posts.Exceptions;
 using G2H.Portal.Web.Models.PostViews;
+using G2H.Portal.Web.Models.PostViews.Exceptions;
+using Xeptions;
 
 namespace G2H.Portal.Web.Services.Views.PostViews
 {
@@ -19,7 +22,26 @@ namespace G2H.Portal.Web.Services.Views.PostViews
 
         private async ValueTask<List<PostView>> TryCatch(ReturningPostViewsFunction returningPostViewsFunction)
         {
-            return await returningPostViewsFunction();
+            try
+            {
+                return await returningPostViewsFunction();
+            }
+            catch (PostDependencyException postDependencyException)
+            {
+                throw CreateAndLogDependencyException(postDependencyException);
+            }
+            catch (PostServiceException postServiceException)
+            {
+                throw CreateAndLogDependencyException(postServiceException);
+            }
+        }
+
+        private PostViewDependencyException CreateAndLogDependencyException(Xeption innerException)
+        {
+            var postViewDependencyException = new PostViewDependencyException(innerException);
+            this.loggingBroker.LogError(postViewDependencyException);
+
+            return postViewDependencyException;
         }
     }
 }
