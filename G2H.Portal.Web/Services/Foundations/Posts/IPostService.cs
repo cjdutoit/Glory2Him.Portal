@@ -9,26 +9,12 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using G2H.Api.Web.Models.Posts;
-using G2H.Portal.Web.Brokers.Apis;
-using G2H.Portal.Web.Brokers.Loggings;
+using G2H.Portal.Web.Models.Posts;
 
 namespace G2H.Portal.Web.Foundations.Posts
 {
-    public partial class PostService : IPostService
+    public interface IPostService
     {
-        private readonly IApiBroker apiBroker;
-        private readonly ILoggingBroker loggingBroker;
-
-        public PostService(
-         IApiBroker apiBroker,
-         ILoggingBroker loggingBroker)
-        {
-            this.apiBroker = apiBroker;
-            this.loggingBroker = loggingBroker;
-        }
-
-        public ValueTask<List<Post>> RetrieveAllPostsAsync() =>
-            TryCatch(async () => await apiBroker.GetAllPostsAsync());
+        ValueTask<List<Post>> RetrieveAllPostsAsync();
     }
 }

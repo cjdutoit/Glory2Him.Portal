@@ -7,19 +7,14 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using G2H.Portal.Web.Models.Posts;
+using G2H.Portal.Web.Models.PostViews;
 
-namespace G2H.Portal.Web.Brokers.Apis
+namespace G2H.Portal.Web.Services.Views.PostViews
 {
-    public partial interface IApiBroker
+    public interface IPostViewService
     {
-        ValueTask<Post> PostPostAsync(Post post);
-        ValueTask<List<Post>> GetAllPostsAsync();
-        ValueTask<Post> GetPostByIdAsync(Guid postId);
-        ValueTask<Post> PutPostAsync(Post post);
-        ValueTask<Post> DeletePostByIdAsync(Guid postId);
+        ValueTask<List<PostView>> RetrieveAllPostViewsAsync();
     }
 }

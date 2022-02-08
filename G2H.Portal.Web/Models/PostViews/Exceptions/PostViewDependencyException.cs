@@ -8,18 +8,14 @@
 // --------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using G2H.Portal.Web.Models.Posts;
+using Xeptions;
 
-namespace G2H.Portal.Web.Brokers.Apis
+namespace G2H.Portal.Web.Models.PostViews.Exceptions
 {
-    public partial interface IApiBroker
+    public class PostViewDependencyException : Xeption
     {
-        ValueTask<Post> PostPostAsync(Post post);
-        ValueTask<List<Post>> GetAllPostsAsync();
-        ValueTask<Post> GetPostByIdAsync(Guid postId);
-        ValueTask<Post> PutPostAsync(Post post);
-        ValueTask<Post> DeletePostByIdAsync(Guid postId);
+        public PostViewDependencyException(Exception innerException)
+            : base(message: "Post view dependency error occurred, please contact support.", innerException)
+        { }
     }
 }

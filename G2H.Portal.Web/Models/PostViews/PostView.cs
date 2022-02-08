@@ -7,14 +7,17 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using G2H.Api.Web.Models.Posts;
+using System;
 
-namespace G2H.Portal.Web.Foundations.Posts
+namespace G2H.Portal.Web.Models.PostViews
 {
-    public interface IPostService
+    public class PostView
     {
-        ValueTask<List<Post>> RetrieveAllPostsAsync();
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Content { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
+        public DateTimeOffset UpdatedDate { get; set; }
     }
 }
