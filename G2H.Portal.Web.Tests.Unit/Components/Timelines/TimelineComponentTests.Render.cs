@@ -7,6 +7,7 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bunit;
@@ -39,6 +40,43 @@ namespace G2H.Portal.Web.Tests.Unit.Components.Timelines
             initialTimelineComponent.PostViews.Should().BeNull();
             initialTimelineComponent.Label.Should().BeNull();
             initialTimelineComponent.ErrorMessage.Should().BeNull();
+        }
+
+        [Fact]
+        public void ShouldDisplayLoadingBeforeRenderingPosts()
+        {
+            // given
+            TimeLineComponentState expectedState =
+                TimeLineComponentState.Loading;
+
+            string expectedSpinnerValue = "Loading ...";
+            List<PostView> somePostViews = CreateRandomPostViews();
+
+            this.postViewServiceMock.Setup(service =>
+                service.RetrieveAllPostViewsAsync())
+                    .ReturnsAsync(
+                        value: somePostViews,
+                        delay: TimeSpan.FromMilliseconds(500));
+
+            // when
+            this.renderedTimelineComponent =
+                RenderComponent<TimelineComponent>();
+
+            // then
+            this.renderedTimelineComponent.Instance.State
+                .Should().Be(expectedState);
+
+            this.renderedTimelineComponent.Instance.Spinner.IsVisible
+                .Should().BeTrue();
+
+            this.renderedTimelineComponent.Instance.Spinner.Value
+                .Should().Be(expectedSpinnerValue);
+
+            this.postViewServiceMock.Verify(service =>
+                service.RetrieveAllPostViewsAsync(),
+                    Times.Once());
+
+            this.postViewServiceMock.VerifyNoOtherCalls();
         }
 
         [Fact]
