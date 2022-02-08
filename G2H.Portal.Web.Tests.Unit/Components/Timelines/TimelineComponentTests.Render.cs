@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Linq;
 using Bunit;
 using FluentAssertions;
 using G2H.Portal.Web.Models.PostViews;
@@ -74,7 +75,16 @@ namespace G2H.Portal.Web.Tests.Unit.Components.Timelines
             IReadOnlyList<IRenderedComponent<CardBase>> postComponents =
                 this.renderedTimelineComponent.FindComponents<CardBase>();
 
-            postComponents.Should().HaveCount(expectedPostViews.Count);
+            postComponents.ToList().ForEach(component =>
+            {
+                bool componentContentExists =
+                    expectedPostViews.Any(postView =>
+                    component.Markup.Contains($"{postView.Title} by {postView.Author}")
+                        && component.Markup.Contains(postView.Content)
+                        && component.Markup.Contains(postView.UpdatedDate.ToString("dd/MM/yyyy")));
+
+                componentContentExists.Should().BeTrue();
+            });
 
             this.postViewServiceMock.Verify(service =>
                 service.RetrieveAllPostViewsAsync(),

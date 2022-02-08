@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using G2H.Portal.Web.Models.PostViews;
 using G2H.Portal.Web.Models.Views.Components;
 using G2H.Portal.Web.Services.Views.PostViews;
@@ -23,8 +24,17 @@ namespace G2H.Portal.Web.Views.Components.TimeLines
 
         public TimeLineComponentState State { get; set; }
         public List<PostView> PostViews { get; set; }
+        public SpinnerBase Spinner { get; set; }
         public string ErrorMessage { get; set; }
         public LabelBase Label { get; set; }
         public ImageBase ErrorImage { get; set; }
+
+        protected async override Task OnInitializedAsync()
+        {
+            this.PostViews =
+                await this.PostViewService.RetrieveAllPostViewsAsync();
+
+            this.State = TimeLineComponentState.Content;
+        }
     }
 }
