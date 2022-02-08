@@ -7,9 +7,9 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
-namespace G2H.Portal.Web.Models.Views.Components
+namespace G2H.Portal.Web.Models.Views.Components.Timelines
 {
-    public enum TimeLineComponentState
+    public enum TimelineComponentState
     {
         Loading,
         Content,

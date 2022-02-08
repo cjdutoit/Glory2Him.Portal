@@ -11,9 +11,9 @@ using System;
 using System.Collections.Generic;
 using Bunit;
 using FluentAssertions;
-using G2H.Portal.Web.Models.Views.Components;
+using G2H.Portal.Web.Models.Views.Components.Timelines;
 using G2H.Portal.Web.Views.Bases;
-using G2H.Portal.Web.Views.Components.TimeLines;
+using G2H.Portal.Web.Views.Components.Timelines;
 using Moq;
 using Xunit;
 
@@ -25,8 +25,8 @@ namespace G2H.Portal.Web.Tests.Unit.Components.Timelines
         public void ShouldRenderErrorIfExceptionOccurs()
         {
             // given
-            TimeLineComponentState expectedState =
-                TimeLineComponentState.Error;
+            TimelineComponentState expectedState =
+                TimelineComponentState.Error;
 
             string randomMessage = GetRandomString();
             string exceptionMessage = randomMessage;

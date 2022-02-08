@@ -1,9 +1,11 @@
-﻿@using PrettyBlazor;
-@using G2H.Portal.Web.Models.Views.Components
+﻿@using G2H.Portal.Web.Models.Views.Components.Timelines
+@using G2H.Portal.Web.Models.PostViews;
 @using G2H.Portal.Web.Views.Bases;
+@using PrettyBlazor;
+
 
 <div>
-    <Condition Evaluation="@(State == TimeLineComponentState.Loading)">
+    <Condition Evaluation="@(State == TimelineComponentState.Loading)">
         <Match>
             <SpinnerBase @ref=Spinner
                          IsVisible=true
@@ -11,7 +13,7 @@
         </Match>
     </Condition>
 
-    <Condition Evaluation="@(State == TimeLineComponentState.Content)">
+    <Condition Evaluation="@(State == TimelineComponentState.Content)">
         <Match>
             <Virtualize Items=@PostViews Context=postView>
                 <CardBase Title=@($"{@postView.Title} by {@postView.Author}")
@@ -26,7 +28,7 @@
         </Match>
     </Condition>
 
-    <Condition Evaluation="@(State == TimeLineComponentState.Error)">
+    <Condition Evaluation="@(State == TimelineComponentState.Error)">
         <Match>
             <ImageBase @ref=ErrorImage
                        Source="imgs/error.png"

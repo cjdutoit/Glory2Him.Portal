@@ -11,19 +11,19 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using G2H.Portal.Web.Models.PostViews;
-using G2H.Portal.Web.Models.Views.Components;
+using G2H.Portal.Web.Models.Views.Components.Timelines;
 using G2H.Portal.Web.Services.Views.PostViews;
 using G2H.Portal.Web.Views.Bases;
 using Microsoft.AspNetCore.Components;
 
-namespace G2H.Portal.Web.Views.Components.TimeLines
+namespace G2H.Portal.Web.Views.Components.Timelines
 {
     public partial class TimelineComponent
     {
         [Inject]
         public IPostViewService PostViewService { get; set; }
 
-        public TimeLineComponentState State { get; set; }
+        public TimelineComponentState State { get; set; }
         public List<PostView> PostViews { get; set; }
         public SpinnerBase Spinner { get; set; }
         public string ErrorMessage { get; set; }
@@ -37,12 +37,12 @@ namespace G2H.Portal.Web.Views.Components.TimeLines
                 this.PostViews =
                     await this.PostViewService.RetrieveAllPostViewsAsync();
 
-                this.State = TimeLineComponentState.Content;
+                this.State = TimelineComponentState.Content;
             }
             catch (Exception exception)
             {
                 this.ErrorMessage = exception.Message;
-                this.State = TimeLineComponentState.Error;
+                this.State = TimelineComponentState.Error;
             }
         }
     }

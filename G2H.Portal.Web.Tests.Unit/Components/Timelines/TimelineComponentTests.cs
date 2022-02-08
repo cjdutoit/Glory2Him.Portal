@@ -13,7 +13,7 @@ using System.Linq;
 using Bunit;
 using G2H.Portal.Web.Models.PostViews;
 using G2H.Portal.Web.Services.Views.PostViews;
-using G2H.Portal.Web.Views.Components.TimeLines;
+using G2H.Portal.Web.Views.Components.Timelines;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Syncfusion.Blazor;

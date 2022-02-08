@@ -13,9 +13,9 @@ using System.Linq;
 using Bunit;
 using FluentAssertions;
 using G2H.Portal.Web.Models.PostViews;
-using G2H.Portal.Web.Models.Views.Components;
+using G2H.Portal.Web.Models.Views.Components.Timelines;
 using G2H.Portal.Web.Views.Bases;
-using G2H.Portal.Web.Views.Components.TimeLines;
+using G2H.Portal.Web.Views.Components.Timelines;
 using Moq;
 using Xunit;
 
@@ -27,8 +27,8 @@ namespace G2H.Portal.Web.Tests.Unit.Components.Timelines
         public void ShouldInitComponent()
         {
             // given
-            TimeLineComponentState expectedState =
-                TimeLineComponentState.Loading;
+            TimelineComponentState expectedState =
+                TimelineComponentState.Loading;
 
             // when
             var initialTimelineComponent =
@@ -46,8 +46,8 @@ namespace G2H.Portal.Web.Tests.Unit.Components.Timelines
         public void ShouldDisplayLoadingBeforeRenderingPosts()
         {
             // given
-            TimeLineComponentState expectedState =
-                TimeLineComponentState.Loading;
+            TimelineComponentState expectedState =
+                TimelineComponentState.Loading;
 
             string expectedSpinnerValue = "Loading ...";
             List<PostView> somePostViews = CreateRandomPostViews();
@@ -83,8 +83,8 @@ namespace G2H.Portal.Web.Tests.Unit.Components.Timelines
         public void ShouldRenderPosts()
         {
             // given
-            TimeLineComponentState expectedState =
-                TimeLineComponentState.Content;
+            TimelineComponentState expectedState =
+                TimelineComponentState.Content;
 
             List<PostView> randomPostViews =
                 CreateRandomPostViews();
