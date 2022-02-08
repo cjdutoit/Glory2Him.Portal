@@ -7,10 +7,13 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using G2H.Portal.Web.Brokers.Loggings;
 using G2H.Portal.Web.Foundations.Posts;
+using G2H.Portal.Web.Models.Posts;
 using G2H.Portal.Web.Models.PostViews;
 
 namespace G2H.Portal.Web.Services.Views.PostViews
@@ -28,9 +31,27 @@ namespace G2H.Portal.Web.Services.Views.PostViews
             this.loggingBroker = loggingBroker;
         }
 
-        public ValueTask<List<PostView>> RetrieveAllPostViewsAsync()
+        public async ValueTask<List<PostView>> RetrieveAllPostViewsAsync()
         {
-            throw new System.NotImplementedException();
+            List<Post> posts =
+                await this.postService.RetrieveAllPostsAsync();
+
+            return posts.Select(AsPostView).ToList();
+        }
+
+        private static Func<Post, PostView> AsPostView =>
+            post => MapToPostView(post);
+
+        private static PostView MapToPostView(Post post)
+        {
+            return new PostView
+            {
+                Id = post.Id,
+                Content = post.Content,
+                CreatedDate = post.CreatedDate,
+                UpdatedDate = post.UpdatedDate,
+                Author = post.Author
+            };
         }
     }
 }
