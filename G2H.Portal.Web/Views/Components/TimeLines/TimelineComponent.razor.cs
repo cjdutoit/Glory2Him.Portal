@@ -7,6 +7,7 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using G2H.Portal.Web.Models.PostViews;
@@ -31,10 +32,18 @@ namespace G2H.Portal.Web.Views.Components.TimeLines
 
         protected async override Task OnInitializedAsync()
         {
-            this.PostViews =
-                await this.PostViewService.RetrieveAllPostViewsAsync();
+            try
+            {
+                this.PostViews =
+                    await this.PostViewService.RetrieveAllPostViewsAsync();
 
-            this.State = TimeLineComponentState.Content;
+                this.State = TimeLineComponentState.Content;
+            }
+            catch (Exception exception)
+            {
+                this.ErrorMessage = exception.Message;
+                this.State = TimeLineComponentState.Error;
+            }
         }
     }
 }
