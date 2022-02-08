@@ -35,6 +35,9 @@ namespace G2H.Portal.Web.Tests.Unit.Components.Timelines
             this.JSInterop.Mode = JSRuntimeMode.Loose;
         }
 
+        private static string GetRandomString() =>
+            new MnemonicString(wordCount: GetRandomNumber()).GetValue();
+
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
 
