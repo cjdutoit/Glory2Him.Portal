@@ -7,9 +7,14 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using Bunit;
 using FluentAssertions;
+using G2H.Portal.Web.Models.PostViews;
 using G2H.Portal.Web.Models.Views.Components;
+using G2H.Portal.Web.Views.Bases;
 using G2H.Portal.Web.Views.Components.TimeLines;
+using Moq;
 using Xunit;
 
 namespace G2H.Portal.Web.Tests.Unit.Components.Timelines
@@ -33,6 +38,49 @@ namespace G2H.Portal.Web.Tests.Unit.Components.Timelines
             initialTimelineComponent.PostViews.Should().BeNull();
             initialTimelineComponent.Label.Should().BeNull();
             initialTimelineComponent.ErrorMessage.Should().BeNull();
+        }
+
+        [Fact]
+        public void ShouldRenderPosts()
+        {
+            // given
+            TimeLineComponentState expectedState =
+                TimeLineComponentState.Content;
+
+            List<PostView> randomPostViews =
+                CreateRandomPostViews();
+
+            List<PostView> retrievedPostViews =
+                randomPostViews;
+
+            List<PostView> expectedPostViews =
+                retrievedPostViews;
+
+            this.postViewServiceMock.Setup(service =>
+                service.RetrieveAllPostViewsAsync())
+                    .ReturnsAsync(retrievedPostViews);
+
+            // when
+            this.renderedTimelineComponent =
+                RenderComponent<TimelineComponent>();
+
+            // then
+            this.renderedTimelineComponent.Instance.State
+                .Should().Be(expectedState);
+
+            this.renderedTimelineComponent.Instance.PostViews
+                .Should().BeEquivalentTo(expectedPostViews);
+
+            IReadOnlyList<IRenderedComponent<CardBase>> postComponents =
+                this.renderedTimelineComponent.FindComponents<CardBase>();
+
+            postComponents.Should().HaveCount(expectedPostViews.Count);
+
+            this.postViewServiceMock.Verify(service =>
+                service.RetrieveAllPostViewsAsync(),
+                    Times.Once);
+
+            this.postViewServiceMock.VerifyNoOtherCalls();
         }
     }
 }
