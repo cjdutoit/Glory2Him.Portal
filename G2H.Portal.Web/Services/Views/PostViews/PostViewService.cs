@@ -48,10 +48,11 @@ namespace G2H.Portal.Web.Services.Views.PostViews
             return new PostView
             {
                 Id = post.Id,
+                Title = post.Title,
+                Author = post.Author,
                 Content = post.Content,
                 CreatedDate = post.CreatedDate,
-                UpdatedDate = post.UpdatedDate,
-                Author = post.Author
+                UpdatedDate = post.UpdatedDate
             };
         }
     }
