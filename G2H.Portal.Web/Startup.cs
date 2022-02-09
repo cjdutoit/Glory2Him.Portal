@@ -7,6 +7,10 @@
 // https://mark.bible/mark-16-15 
 // --------------------------------------------------------------------------------
 
+using G2H.Portal.Web.Brokers.Apis;
+using G2H.Portal.Web.Brokers.Loggings;
+using G2H.Portal.Web.Foundations.Posts;
+using G2H.Portal.Web.Services.Views.PostViews;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +36,8 @@ namespace G2H.Portal.Web
             AddRootDirectory(services);
             services.AddLogging();
             services.AddHttpClient();
+            AddBrokers(services);
+            AddServices(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,6 +72,18 @@ namespace G2H.Portal.Web
             {
                 options.RootDirectory = "/Views/Pages";
             });
+        }
+
+        private static void AddBrokers(IServiceCollection services)
+        {
+            services.AddScoped<IApiBroker, ApiBroker>();
+            services.AddScoped<ILoggingBroker, LoggingBroker>();
+        }
+
+        private static void AddServices(IServiceCollection services)
+        {
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IPostViewService, PostViewService>();
         }
     }
 }
